@@ -42,7 +42,7 @@ public class ReservaUseCase implements ReservaUseCaseInterface {
 
         Reserva r = reservaRepository.save(modelMapper.map(reserva,Reserva.class));
         servicioPrincipal.anadirReservaEnBus(r,autobus.getId());
-        servicioPrincipal.sendEmail("pruebaemail151@gmail.com", "Prueba",reserva.toString());
+        servicioPrincipal.sendEmail("pruebaemail151@gmail.com", "Reserva",r.toString());
         return modelMapper.map(r, OutputDTOReserva.class);
     }
 

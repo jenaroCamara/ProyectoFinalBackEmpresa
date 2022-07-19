@@ -21,4 +21,14 @@ public class Reserva {
     String hora;
     @Column
     String destino;
+
+    @Override
+    public String toString() {
+        return "Reserva{" +
+                "id_r=" + id_r +
+                ", fecha=" + fecha +
+                ", hora='" + hora + '\'' +
+                ", destino='" + destino + '\'' +
+                '}';
+    }
 }
