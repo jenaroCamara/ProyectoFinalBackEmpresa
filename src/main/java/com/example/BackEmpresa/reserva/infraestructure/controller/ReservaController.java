@@ -25,6 +25,12 @@ public class ReservaController {
     @Autowired
     ModelMapper modelMapper;
 
+    /*
+    Endpoints síncronos:
+    · Creación reservas. Le llegaran peticiones REST desde el front (angular?)
+    · Número de plazas libres en un autobús para un día/hora/destino. Buscará en la tabla reservas disponibles (‘autobus-hora-dia-ciudad-numero_plazas_disponibles')
+    · Consulta reservas realizadas. Aceptará un token JWT firmado por la empresa y que considerará valido.
+     */
     @PostMapping("/")
     public ResponseEntity<String> realizaReserva(@RequestBody InputDTOReserva reserva) throws Exception {
         OutputDTOReserva r;
@@ -35,6 +41,18 @@ public class ReservaController {
         }
         //me queda notificar email por confirmación.
         return ResponseEntity.ok().body("Gracias por su reserva.\n" + r.toString());
+    }
+
+    @GetMapping("/destino/{hora}/{fecha}")
+    public ResponseEntity<String> obtenerAsientos(@PathVariable String fecha, @PathVariable String destino, @PathVariable String hora) throws Exception {
+        int suma;
+        try{
+            suma = reservaService.obtenerAsientos(fecha, destino, hora);
+        }catch (UnprocesableException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        //me queda notificar email por confirmación.
+        return ResponseEntity.ok().body("Asientos disponibles: " + suma);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

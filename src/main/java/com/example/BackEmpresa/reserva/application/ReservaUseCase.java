@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -42,8 +43,22 @@ public class ReservaUseCase implements ReservaUseCaseInterface {
 
         Reserva r = reservaRepository.save(modelMapper.map(reserva,Reserva.class));
         servicioPrincipal.anadirReservaEnBus(r,autobus.getId());
-        servicioPrincipal.sendEmail("pruebaemail151@gmail.com", "Reserva",r.toString());
+        //servicioPrincipal.sendEmail("pruebaemail151@gmail.com", "Reserva",r.toString());
         return modelMapper.map(r, OutputDTOReserva.class);
+    }
+
+    public int obtenerAsientos(String fecha, String destino, String hora){
+        LocalDate date = LocalDate.parse(fecha);
+        Date date1 = java.sql.Date.valueOf(date);
+        String pattern = "yyyy-MM-dd";
+        DateFormat df = new SimpleDateFormat(pattern);
+        String fechaString = df.format(date1);
+        List<OutputDTOAutobus> autobuses = servicioPrincipal.obtenerAutobus(fechaString,  destino, hora);
+        int suma = 0;
+        for (OutputDTOAutobus a: autobuses ){
+            suma+= a.getAsientosTotales()-a.getAsientosOcupados();
+        }
+        return suma;
     }
 
     private OutputDTOAutobus puedoReservar(List<OutputDTOAutobus> autobuses){

@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class OutputDTOReserva {
-    int id_r;
+    String id_r;
     Date fecha;
     String hora;
     String destino;

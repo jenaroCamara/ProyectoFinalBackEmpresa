@@ -29,7 +29,7 @@ public class Autobus {
     int asientosOcupados;
     @Column
     Date fecha;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     List<Reserva> reservas;
     @Column
     int asientosTotales;
