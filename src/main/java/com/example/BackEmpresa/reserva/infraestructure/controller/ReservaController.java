@@ -43,7 +43,7 @@ public class ReservaController {
         return ResponseEntity.ok().body("Gracias por su reserva.\n" + r.toString());
     }
 
-    @GetMapping("/destino/{hora}/{fecha}")
+    @GetMapping("/{destino}/{hora}/{fecha}")
     public ResponseEntity<String> obtenerAsientos(@PathVariable String fecha, @PathVariable String destino, @PathVariable String hora) throws Exception {
         int suma;
         try{
