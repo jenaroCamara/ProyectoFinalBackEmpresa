@@ -27,28 +27,6 @@ public class Producer {
         this.kafkaTemplate.send(topic, message);
     }
 
-//    public static byte[] convertObjectToBytes(Object obj) {
-//        ByteArrayOutputStream boas = new ByteArrayOutputStream();
-//        try (ObjectOutputStream ois = new ObjectOutputStream(boas)) {
-//            ois.writeObject(obj);
-//            return boas.toByteArray();
-//        } catch (IOException ioe) {
-//            ioe.printStackTrace();
-//        }
-//        throw new RuntimeException();
-//    }
-//
-//    public String convertByteArrayToString(byte[] bytes) {
-//        String res = null;
-//        try {
-//            res = new String(bytes);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return res;
-//    }
-
 
     ///docker-compose -f zk-single-kafka-multiple-4.yml up -d
 //docker-compose -f zk-single-kafka-multiple-4.yml down

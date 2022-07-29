@@ -33,7 +33,6 @@ public class AutobusUseCase implements AutobusUseCaseInterface {
     private EntityManager em;
 
     public List<OutputDTOAutobus> getAll() {
-        //List<Autobus> lista = autobusRepositorio.findAll();
         return autobusRepositorio.findAll().stream().map(autobus -> modelMapper.map(autobus, OutputDTOAutobus.class))
                 .collect(Collectors.toList());
     }
@@ -68,7 +67,7 @@ public class AutobusUseCase implements AutobusUseCaseInterface {
         data.forEach((field, value) ->
         {
             switch (field) {
-                case "destino"://el destino es un enum, le tengo que pasar un int
+                case "destino":
                     predicates.add(cb.like(root.get(field), "%" + (String) value + "%"));
                     break;
                 case "fecha":

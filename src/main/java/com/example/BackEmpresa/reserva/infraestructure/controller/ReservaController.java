@@ -1,6 +1,8 @@
 package com.example.BackEmpresa.reserva.infraestructure.controller;
 
 import com.example.BackEmpresa.exception.UnprocesableException;
+import com.example.BackEmpresa.model.JwtRequest;
+import com.example.BackEmpresa.model.JwtResponse;
 import com.example.BackEmpresa.reserva.application.ReservaUseCase;
 import com.example.BackEmpresa.reserva.domain.Reserva;
 import com.example.BackEmpresa.reserva.infraestructure.dto.InputDTOReserva;
@@ -53,6 +55,16 @@ public class ReservaController {
         }
         //me queda notificar email por confirmación.
         return ResponseEntity.ok().body("Asientos disponibles: " + suma);
+    }
+
+    //---------------------------------------------------------------------------------//
+    //backweb1 y backweb2 neccesitaran un endpoint like this
+    @PostMapping("/v2/employees")
+    public ResponseEntity createV2(@RequestBody final JwtRequest peticion) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        HttpEntity < Employee > entity = new HttpEntity < > (newEmployee, httpHeaders);// NO SE SI envia o recoje, probar
+        return restTemplate.exchange(URL CON EL PUERTO 8080 DE BACKEMPRESA, HttpMethod.POST, entity, JwtResponse.class);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
